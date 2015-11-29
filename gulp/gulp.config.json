@@ -1,0 +1,13 @@
+{
+    "dest": "./build",
+    "srcs": "./src",
+    "templates": "**/*.jade",
+    "scripts": "scripts/**/*.coffee",
+    "styles": "styles/**/*.scss",
+    "images": "assets/images",
+    "vendorStyles": [],
+    "vendorScripts": [
+      "./bower_components/pixi.js/bin/pixi.min.js",
+      "./bower_components/jquery/dist/jquery.min.js"
+    ]
+}

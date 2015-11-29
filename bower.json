@@ -1,0 +1,29 @@
+{
+  "name": "connect4",
+  "description": "HCI assignment",
+  "main": "./dist/index.html",
+  "authors": [
+    "Alexandre Fulgoni"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "connect4",
+    "coffeescript",
+    "jade",
+    "sass",
+    "pixi.js"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pixi.js": "~3.0.8",
+    "jquery": "~2.1.4"
+  }
+}
