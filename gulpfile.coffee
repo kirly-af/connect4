@@ -1,18 +1,16 @@
-gulp = require 'gulp'
-plug = (require 'gulp-load-plugins')()
-conf = require './gulp/gulp.config.json'
-env  = require './gulp/gulp.env.json'
-log  = console.log
-path = require 'path'
-args = require 'yargs'
+gulp        = require 'gulp'
+plug        = (require 'gulp-load-plugins')()
+conf        = require './gulp/gulp.config.json'
+env         = require './gulp/gulp.env.json'
+path        = require 'path'
+tasks       = require 'lazypipe'
+browserSync = (require 'browser-sync').create()
+reload      = browserSync.reload
+runSequence = require 'run-sequence'
+args        = require 'yargs'
   .default('dev', env.dev)
   .default('prod', not env.dev)
   .argv
-tasks = require 'lazypipe'
-
-browserSync = (require 'browser-sync').create()
-reload = browserSync.reload
-runSequence = require 'run-sequence'
 
 gulp.task 'default', [
   if args.dev is true
@@ -89,7 +87,7 @@ gulp.task 'styles', ->
     .pipe plug.if(env.dev, plug.sourcemaps.write '.')
     .pipe plug.if(env.prod, plug.minifyCss())
     .pipe gulp.dest "#{conf.dest}/styles"
-    # .pipe plug.if(env.dev, reload stream: true)
+    # .pipe plug.if(env.dev, browserSync.stream())
 
 gulp.task 'vendorStyles', ->
   gulp.src conf.vendorStyles
