@@ -24,6 +24,8 @@
   ],
   "dependencies": {
     "pixi.js": "~3.0.8",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.6",
+    "font-awesome": "~4.5.0"
   }
 }

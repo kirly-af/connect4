@@ -4,8 +4,8 @@
   "description": "HCI assignment",
   "main": "./dist/index.html",
   "scripts": {
-    "preinstall": "node ./npm/preinstall.js",
-    "postinstall": "node ./npm/postinstall.js",
+    "preinstall": "npm install -g gulp",
+    "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
