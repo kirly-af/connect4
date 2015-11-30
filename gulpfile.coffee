@@ -6,17 +6,23 @@ path        = require 'path'
 tasks       = require 'lazypipe'
 browserSync = (require 'browser-sync').create()
 reload      = browserSync.reload
-runSequence = require 'run-sequence'
 args        = require 'yargs'
   .default('dev', env.dev)
   .default('prod', not env.dev)
   .argv
 
-gulp.task 'default', [
-  if args.dev is true
-  then 'serve'
-  else 'build'
-]
+defaultTask = if args.dev is true then 'serve' else 'build'
+gulp.task 'default', [defaultTask]
+
+gulp.task 'serve', ['watch'], ->
+  browserSync.init
+    server:
+      baseDir: conf.dest
+
+gulp.task 'watch', ['build'], ->
+  gulp.watch conf.templates, ['templates']
+  gulp.watch conf.scripts, ['scripts']
+  gulp.watch conf.styles, ['styles']
 
 gulp.task 'build', [
   'templates'
@@ -28,21 +34,12 @@ gulp.task 'build', [
   'images'
 ]
 
-gulp.task 'serve', ['build', 'watch'], ->
-  browserSync.init
-    server:
-      baseDir: conf.dest
-
-gulp.task 'watch', ->
-  gulp.watch conf.templates, ['templates']
-  gulp.watch conf.scripts, ['scripts']
-  gulp.watch conf.styles, ['styles']
-
 gulp.task 'clean', ->
   gulp.src "#{conf.dest}/*", read: false
     .pipe plug.rimraf()
 
 gulp.task 're', ->
+  runSequence = require 'run-sequence'
   runSequence 'clean', 'build'
 
 gulp.task 'help', plug.taskListing
@@ -53,7 +50,7 @@ gulp.task 'templates', ->
     .pipe plug.jade()
     .pipe plug.if(env.prod, plug.minifyHtml())
     .pipe gulp.dest conf.dest
-    # .pipe plug.if(env.dev, reload stream: true)
+    .pipe plug.if(env.dev, reload stream: true)
 
 gulp.task 'scripts', ->
   commonTasks = tasks()
@@ -76,7 +73,7 @@ gulp.task 'scripts', ->
     .pipe plug.if(env.dev, devTasks())
     .pipe plug.if(env.prod, prodTasks())
     .pipe gulp.dest "#{conf.dest}/scripts"
-    # .pipe plug.if(env.dev, reload stream: true)
+    .pipe plug.if(env.dev, reload stream: true)
 
 gulp.task 'styles', ->
   gulp.src conf.styles
@@ -87,7 +84,7 @@ gulp.task 'styles', ->
     .pipe plug.if(env.dev, plug.sourcemaps.write '.')
     .pipe plug.if(env.prod, plug.minifyCss())
     .pipe gulp.dest "#{conf.dest}/styles"
-    # .pipe plug.if(env.dev, browserSync.stream())
+    .pipe plug.if(env.dev, browserSync.stream())
 
 gulp.task 'vendorStyles', ->
   gulp.src conf.vendorStyles

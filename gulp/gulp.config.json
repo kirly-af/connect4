@@ -1,7 +1,12 @@
 {
     "dest": "./dist/",
     "templates": "./src/**/*.jade",
-    "scripts": "./src/scripts/**/*.coffee",
+    "scripts": [
+      "./src/scripts/**/module.coffee",
+      "./src/scripts/**/ui.coffee",
+      "./src/scripts/**/game.coffee",
+      "./src/scripts/**/*.coffee"
+    ],
     "styles": "./src/styles/**/*.scss",
     "images": "./src/assets/images/**/*.*",
     "vendorFonts": [
