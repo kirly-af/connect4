@@ -20,7 +20,7 @@
     "coffeescript",
     "jade",
     "sass",
-    "pixi.js"
+    "phaser"
   ],
   "author": "Alexandre Fulgoni",
   "license": "ISC",

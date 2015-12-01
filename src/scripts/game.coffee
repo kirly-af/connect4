@@ -1,5 +1,12 @@
-class Game
-  constructor: (name) ->
-    @ui = new connect4.UI name
+class connect4.Game
+  constructor: (width, length) ->
+    @phaser = new Phaser.Game width, length, Phaser.AUTO, '',
+      preload: @preload
+      create: @create
+      update: @update
 
-g = new Game 'toto'
+  preload: ->
+
+  create: ->
+
+  update: ->

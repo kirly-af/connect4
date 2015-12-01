@@ -11,8 +11,7 @@ args        = require 'yargs'
   .default('prod', not env.dev)
   .argv
 
-defaultTask = if args.dev is true then 'serve' else 'build'
-gulp.task 'default', [defaultTask]
+gulp.task 'default', [if args.dev is true then 'serve' else 'build']
 
 gulp.task 'serve', ['watch'], ->
   browserSync.init
@@ -39,8 +38,7 @@ gulp.task 'clean', ->
     .pipe plug.rimraf()
 
 gulp.task 're', ->
-  runSequence = require 'run-sequence'
-  runSequence 'clean', 'build'
+  (require 'run-sequence') 'clean', 'build'
 
 gulp.task 'help', plug.taskListing
 
@@ -86,21 +84,21 @@ gulp.task 'styles', ->
     .pipe gulp.dest "#{conf.dest}/styles"
     .pipe plug.if(env.dev, browserSync.stream())
 
-gulp.task 'vendorStyles', ->
-  gulp.src conf.vendorStyles
-    .pipe plug.concat 'vendor.css'
-    .pipe gulp.dest "#{conf.dest}/styles"
-
 gulp.task 'vendorScripts', ->
   gulp.src conf.vendorScripts
     .pipe plug.concat 'vendor.js'
     .pipe gulp.dest "#{conf.dest}/scripts"
 
+gulp.task 'vendorStyles', ->
+  gulp.src conf.vendorStyles
+    .pipe plug.concat 'vendor.css'
+    .pipe gulp.dest "#{conf.dest}/styles"
+
 gulp.task 'fonts', ->
   gulp.src conf.vendorFonts
-    .pipe gulp.dest "#{conf.dest}/fonts"
+    .pipe gulp.dest "#{conf.dest}/assets/fonts"
 
 gulp.task 'images', ->
   gulp.src conf.images
     .pipe plug.imagemin optimizationLevel: 3
-    .pipe gulp.dest "#{conf.dest}/images"
+    .pipe gulp.dest "#{conf.dest}/assets/images"

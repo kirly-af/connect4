@@ -1,0 +1,51 @@
+$content-height: 90%;
+
+html
+{
+  height: 100%;
+}
+
+body
+{
+  font-size: 20px;
+  height: 100%;
+}
+
+#header
+{
+  height: (100% - $content-height) / 2;
+
+  .navbar
+  {
+    background-color: #25313E;
+    border: 0;
+    border-radius: 0;
+    height: 100%;
+
+    #title
+    {
+      color: #f2f6f9;
+    }
+  }
+}
+
+#content
+{
+  background-color: #F1F1F1;
+  height: $content-height;
+}
+
+#footer
+{
+  background-color: #65BD77;
+  color: white;
+  height: (100% - $content-height) / 2;
+  min-height: 100px;
+  text-align: center;
+
+  .container-fluid
+  {
+    height: 100%;
+    padding-top: 10px;
+  }
+}

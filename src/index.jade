@@ -1,9 +1,19 @@
 doctype html
 html(lang="en")
   head
-    title=Connect4
+    title="Connect 4"
     link(href="styles/vendor.css", rel="stylesheet", type="text/css")
     link(href="styles/all.css", rel="stylesheet", type="text/css")
   body
+    #header
+      nav.navbar.navbar-default
+        .container-fluid
+          .navbar-header
+            a#title(class="navbar-brand", href="#") Connect 4
+    #content
+    #footer
+      nav.navbar
+        .container-fluid 
+          | Alexandre Fulgoni, Adrien Chataignoux, Julien Fontana, Cyrille Morin 
     script(src="scripts/vendor.js")
     script(src="scripts/app.js")
