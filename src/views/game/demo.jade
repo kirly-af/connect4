@@ -1,0 +1,18 @@
+extends ../layouts/master.jade
+
+block styles
+  style.
+    html { height: 100%; }
+    body { height: 100%; margin: 0; }
+    #content {height: 100%; width: 100%; }
+    #game-container { height: 100%; width: 100%; }
+
+block scripts
+  if dev
+    script(async="", src="/browser-sync/browser-sync-client.2.10.0.js")
+
+  script(src="scripts/vendor.js")
+  script(src="scripts/app.js")
+
+block content
+  #game-container

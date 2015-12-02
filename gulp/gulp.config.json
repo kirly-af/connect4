@@ -1,24 +1,27 @@
 {
-    "dest": "./dist/",
-    "templates": "./src/**/*.jade",
-    "scripts": [
-      "./src/scripts/**/module.coffee",
-      "./src/scripts/**/game.coffee",
-      "./src/scripts/**/app.coffee",
-      "./src/scripts/**/*.coffee"
-    ],
-    "styles": "./src/styles/**/*.scss",
-    "images": "./src/assets/images/**/*.*",
-    "vendorFonts": [
-      "./bower_components/font-awesome/fonts/**/*.*"
-    ],
-    "vendorStyles": [
-      "./bower_components/bootstrap/dist/css/bootstrap.min.css",
-      "./bower_components/font-awesome/css/font-awesome.min.css"
-    ],
-    "vendorScripts": [
-      "./bower_components/phaser/build/phaser.min.js",
-      "./bower_components/jquery/dist/jquery.min.js",
-      "./bower_components/bootstrap/dist/js/bootstrap.min.js"
-    ]
+  "dest": "./dist/",
+  "views": "./src/**.jade",
+  "viewsIgnore": [
+    "!./src/views/layouts/**/*.jade"
+  ],
+  "scripts": [
+    "./src/scripts/**/module.coffee",
+    "./src/scripts/**/game.coffee",
+    "./src/scripts/**/app.coffee",
+    "./src/scripts/**/*.coffee"
+  ],
+  "styles": "./src/styles/**/*.scss",
+  "images": "./src/assets/images/**/*.*",
+  "vendorFonts": [
+    "./bower_components/font-awesome/fonts/**/*.*"
+  ],
+  "vendorStyles": [
+    "./bower_components/bootstrap/dist/css/bootstrap.min.css",
+    "./bower_components/font-awesome/css/font-awesome.min.css"
+  ],
+  "vendorScripts": [
+    "./bower_components/phaser/build/phaser.min.js",
+    "./bower_components/jquery/dist/jquery.min.js",
+    "./bower_components/bootstrap/dist/js/bootstrap.min.js"
+  ]
 }

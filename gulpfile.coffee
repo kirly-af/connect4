@@ -19,12 +19,12 @@ gulp.task 'serve', ['watch'], ->
       baseDir: conf.dest
 
 gulp.task 'watch', ['build'], ->
-  gulp.watch conf.templates, ['templates']
+  gulp.watch conf.views, ['views']
   gulp.watch conf.scripts, ['scripts']
   gulp.watch conf.styles, ['styles']
 
 gulp.task 'build', [
-  'templates'
+  'views'
   'styles'
   'vendorStyles'
   'scripts'
@@ -42,13 +42,15 @@ gulp.task 're', ->
 
 gulp.task 'help', plug.taskListing
 
-gulp.task 'templates', ->
-  gulp.src conf.templates
+gulp.task 'views', ->
+  gulp.src [].concat(conf.views, conf.viewsIgnore)
     .pipe plug.plumber()
-    .pipe plug.jade()
+    .pipe plug.jade
+      locals:
+        dev: args.dev
     .pipe plug.if(env.prod, plug.minifyHtml())
     .pipe gulp.dest conf.dest
-    .pipe plug.if(env.dev, reload stream: true)
+    .pipe plug.if(args.dev, reload stream: true)
 
 gulp.task 'scripts', ->
   commonTasks = tasks()
@@ -68,21 +70,21 @@ gulp.task 'scripts', ->
 
   gulp.src conf.scripts
     .pipe plug.plumber()
-    .pipe plug.if(env.dev, devTasks())
+    .pipe plug.if(args.dev, devTasks())
     .pipe plug.if(env.prod, prodTasks())
     .pipe gulp.dest "#{conf.dest}/scripts"
-    .pipe plug.if(env.dev, reload stream: true)
+    .pipe plug.if(args.dev, reload stream: true)
 
 gulp.task 'styles', ->
   gulp.src conf.styles
     .pipe plug.plumber()
-    .pipe plug.if(env.dev, plug.sourcemaps.init())
+    .pipe plug.if(args.dev, plug.sourcemaps.init())
     .pipe plug.sass()
     .pipe plug.concat 'all.css'
-    .pipe plug.if(env.dev, plug.sourcemaps.write '.')
+    .pipe plug.if(args.dev, plug.sourcemaps.write '.')
     .pipe plug.if(env.prod, plug.minifyCss())
     .pipe gulp.dest "#{conf.dest}/styles"
-    .pipe plug.if(env.dev, browserSync.stream())
+    .pipe plug.if(args.dev, browserSync.stream())
 
 gulp.task 'vendorScripts', ->
   gulp.src conf.vendorScripts

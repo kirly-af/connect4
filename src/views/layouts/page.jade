@@ -1,0 +1,19 @@
+extends ./master.jade
+
+block styles
+  link(href="styles/vendor.css", rel="stylesheet", type="text/css")
+  link(href="styles/all.css", rel="stylesheet", type="text/css")
+
+block scripts
+  script(src="scripts/vendor.js")
+
+block header
+  nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        a#title(class="navbar-brand", href="#") Connect 4
+
+block footer
+  .container
+    p.
+    | Alexandre Fulgoni, Adrien Chataignoux, Julien Fontana, Cyrille Morin

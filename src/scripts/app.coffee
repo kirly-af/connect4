@@ -1,1 +1,2 @@
-game = new connect4.Game()
+
+game = new connect4.Game 'game-container'

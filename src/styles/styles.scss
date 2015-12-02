@@ -7,6 +7,7 @@ html
 
 body
 {
+  background-color: #F1F1F1;
   font-size: 20px;
   height: 100%;
 }
@@ -31,8 +32,29 @@ body
 
 #content
 {
-  background-color: #F1F1F1;
   height: $content-height;
+  margin: 0 auto;
+  width: 50%;
+
+  h1
+  {
+    border-bottom: 1px solid black;
+  }
+  #main-links
+  {
+    position: relative;
+    top: 10%;
+  }
+  .row
+  {
+    padding-bottom: 50px;
+    text-align: center;
+  }
+  a.btn
+  {
+    font-size: 40px;
+    width: 395px;
+  }
 }
 
 #footer
@@ -40,12 +62,10 @@ body
   background-color: #65BD77;
   color: white;
   height: (100% - $content-height) / 2;
-  min-height: 100px;
   text-align: center;
 
-  .container-fluid
+  .container
   {
-    height: 100%;
-    padding-top: 10px;
+    // height: 100%;
   }
 }
