@@ -17,14 +17,14 @@ class connect4.Game extends Phaser.Game
 
   fakeIt: ->
     @discPut 0, 0, 'p1'
-    @discPut 1, 0, 'p1'
-    @discPut 0, 2, 'p2'
-    @discPut 0, 3, 'p2'
-    @discPut 0, 4, 'p2'
+    @discPut 0, 1, 'p1'
+    @discPut 2, 0, 'p2'
+    @discPut 3, 0, 'p2'
+    @discPut 4, 0, 'p2'
 
   discPut: (i, j, type, group='discs') ->
-    x = @gameProp.offsets.grid + @gameProp.offsets.disc * j
-    y = @gameProp.offsets.grid + @gameProp.offsets.disc * (5 - i)
+    x = @gameProp.offsets.grid + @gameProp.offsets.disc * i
+    y = @gameProp.offsets.grid + @gameProp.offsets.disc * (5 - j)
     @gameProp[group].create x, y, type
 
   onPreload: ->
@@ -35,19 +35,17 @@ class connect4.Game extends Phaser.Game
     @load.image 'area', 'assets/images/area.png'
     @load.image 'selected', 'assets/images/selected.png'
 
-  onHover: (area, pointer) ->
-    if @gameProp.ignoreHover
-      @gameProp.ignoreHover = false
-      return
-    @gameProp.selected.x = @selectedPosition(area.i)
-
-  onClick: (area, pointer) ->
-    @gameProp.ignoreHover = true
-    console.log('click:', area.i)
+  onInput: (area, pointer) ->
+    currArea = area.i
+    if @gameProp.prevArea is currArea
+      console.log('click:', area.i)
+    else
+      @gameProp.selected.x = @selectedPosition(area.i)
+    @gameProp.prevArea = currArea
 
   onCreate: ->
-    discsCreate = (i) =>
-      @discPut i, j, 'empty', 'grid' for j in [0..6]
+    discsCreate = (j) =>
+      @discPut i, j, 'empty', 'grid' for i in [0..6]
 
     @scale.scaleMode = Phaser.ScaleManager.RESIZE
     @stage.backgroundColor = '#87CEEB'
@@ -88,11 +86,10 @@ class connect4.Game extends Phaser.Game
     x = @areaPosition i
     sprite = @gameProp.areas.create x, 0, 'area'
     sprite.inputEnabled = true
-    over = (sprite, pointer) => @onHover sprite, pointer
+    over = (sprite, pointer) => @onInput sprite, pointer
     click = (sprite, pointer) => @onClick sprite, pointer
     sprite.i = i
     sprite.events.onInputOver.add over, @
-    sprite.events.onInputDown.add click, @
 
   getGrid: ->
     if not @gameProp.gridImage?
