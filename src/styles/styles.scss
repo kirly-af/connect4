@@ -1,15 +1,16 @@
 $content-height: 90%;
 
-html
+html, body
 {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body
 {
   background-color: #F1F1F1;
   font-size: 20px;
-  height: 100%;
 }
 
 #header
@@ -39,6 +40,8 @@ body
 
   h1
   {
+    padding-top: 20px;
+    margin-top: 0;
     border-bottom: 1px solid black;
   }
   #main-links
@@ -67,6 +70,7 @@ body
 
   .container
   {
+    padding-top: 8px;
     // height: 100%;
   }
 }
