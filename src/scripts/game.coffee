@@ -39,6 +39,8 @@ class connect4.Game extends Phaser.Game
     currArea = area.i
     if @gameProp.prevArea is currArea
       console.log('click:', area.i)
+      if area.i is 0
+        @discPut 0, 2, 'p1'                             # TODO remove this
     else
       @gameProp.selected.x = @selectedPosition(area.i)
     @gameProp.prevArea = currArea
