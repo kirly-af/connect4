@@ -64,9 +64,9 @@ gulp.task 'scripts', ->
   devTasks = tasks()
     .pipe plug.coffeelint
     .pipe -> plug.coffeelint.reporter(require 'coffeelint-stylish')
-    .pipe plug.sourcemaps.init
+    # .pipe plug.sourcemaps.init
       .pipe commonTasks
-    .pipe -> plug.sourcemaps.write '.'
+    # .pipe -> plug.sourcemaps.write '.'
 
   gulp.src conf.scripts
     .pipe plug.plumber()
