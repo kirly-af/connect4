@@ -4,7 +4,7 @@ class connect4.Game extends Phaser.Game
       preload: => @onPreload()
       create: => @onCreate()
       resize: => @onResize()
-    @gameProp =
+    @gameData =
       ratio: 1
       offsets:
         grid: 90
@@ -23,9 +23,9 @@ class connect4.Game extends Phaser.Game
     @discPut 4, 0, 'p2'
 
   discPut: (i, j, type, group='discs') ->
-    x = @gameProp.offsets.grid + @gameProp.offsets.disc * i
-    y = @gameProp.offsets.grid + @gameProp.offsets.disc * (5 - j)
-    @gameProp[group].create x, y, type
+    x = @gameData.offsets.grid + @gameData.offsets.disc * i
+    y = @gameData.offsets.grid + @gameData.offsets.disc * (5 - j)
+    @gameData[group].create x, y, type
 
   onPreload: ->
     @load.image 'grid', 'assets/images/grid.png'
@@ -37,56 +37,58 @@ class connect4.Game extends Phaser.Game
 
   onInput: (area, pointer) ->
     currArea = area.i
-    if @gameProp.prevArea is currArea
+    if @gameData.prevArea is currArea
       console.log('click:', area.i)
       if area.i is 0
         @discPut 0, 2, 'p1'                             # TODO remove this
     else
-      @gameProp.selected.x = @selectedPosition(area.i)
-    @gameProp.prevArea = currArea
+      @gameData.transp.x = @areaPos(area.i)
+    @gameData.prevArea = currArea
 
   onCreate: ->
-    discsCreate = (j) =>
-      @discPut i, j, 'empty', 'grid' for i in [0..6]
 
     @scale.scaleMode = Phaser.ScaleManager.RESIZE
     @stage.backgroundColor = '#87CEEB'
-    @gameProp.grid = @add.group()
-    @gameProp.grid.create 0, 0, 'grid'
-    discsCreate i for i in [0..5]
-    @gameProp.discs = @add.group()
-    @gameProp.selected = @add.sprite @selectedPosition(3), 0, 'selected'
-    @gameProp.areas = @add.group()
+
+    @gameData.grid = @add.group()
+    @gameData.grid.create 0, 0, 'grid'
+
+    discsCreate = (j) =>
+      @discPut i, j, 'empty', 'grid' for i in [0..6]
+    discsCreate j for j in [0..5]
+    @gameData.discs = @add.group()
+
+    @gameData.selected = @add.group()
+    @gameData.transp = @gameData.selected.create @areaPos(3), 50, 'selected'
+
+    @gameData.areas = @add.group()
     @areasCreate i for i in [0..6]
+
     @fakeIt()
-    @rescale()
+    @onResize()
     return
 
-  onResize: -> @rescale()
-
-  rescale: ->
-    groupScale = (group, setX=true) =>
-      group.scale.setTo @gameProp.ratio, @gameProp.ratio
-      group.x = @gameProp.pos.x if setX is true
-      group.y = @gameProp.pos.y
+  onResize: ->
+    groupScale = (group, setCoords=true) =>
+      group.scale.setTo @gameData.ratio, @gameData.ratio
+      if setCoords is true
+        group.x = @gameData.pos.x
+        group.y = @gameData.pos.y
 
     @updateRatio()
     @updatePosition()
-    groupScale @gameProp.selected, false
-    groupScale @gameProp.grid
-    groupScale @gameProp.discs
-    groupScale @gameProp.areas
+    groupScale @gameData.selected
+    groupScale @gameData.grid
+    groupScale @gameData.discs
+    groupScale @gameData.areas
     @scale.refresh()
 
-  areaPosition: (i) ->
-    Math.ceil @gameProp.offsets.gridArea + @gameProp.offsets.area * i
-
-  selectedPosition: (i) ->
-    @areaPosition(i) / 2 # WTF
+  areaPos: (i) ->
+    Math.ceil @gameData.offsets.gridArea + @gameData.offsets.area * i
 
   areasCreate: (i) ->
-    x = @areaPosition i
-    sprite = @gameProp.areas.create x, 0, 'area'
+    x = @areaPos i
+    sprite = @gameData.areas.create x, 0, 'area'
     sprite.inputEnabled = true
     over = (sprite, pointer) => @onInput sprite, pointer
     click = (sprite, pointer) => @onClick sprite, pointer
@@ -94,19 +96,19 @@ class connect4.Game extends Phaser.Game
     sprite.events.onInputOver.add over, @
 
   getGrid: ->
-    if not @gameProp.gridImage?
-      @gameProp.gridImage = @cache.getImage 'grid'
-    return @gameProp.gridImage
+    if not @gameData.gridImage?
+      @gameData.gridImage = @cache.getImage 'grid'
+    return @gameData.gridImage
 
   updatePosition: ->
     img = @getGrid()
-    realX = Math.ceil(@gameProp.ratio * img.width)
-    realY = Math.ceil(@gameProp.ratio * img.height)
-    @gameProp.pos.x = Math.ceil((window.innerWidth - realX) / 2)
-    @gameProp.pos.y = Math.ceil((window.innerHeight - realY) / 2)
+    realX = Math.ceil(@gameData.ratio * img.width)
+    realY = Math.ceil(@gameData.ratio * img.height)
+    @gameData.pos.x = Math.ceil((window.innerWidth - realX) / 2)
+    @gameData.pos.y = Math.ceil((window.innerHeight - realY) / 2)
 
   updateRatio: ->
     img = @getGrid()
     xRatio = window.innerWidth / img.width
     yRatio = window.innerHeight / img.height
-    @gameProp.ratio = if xRatio < yRatio then xRatio else yRatio
+    @gameData.ratio = if xRatio < yRatio then xRatio else yRatio
