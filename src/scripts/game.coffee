@@ -34,16 +34,10 @@ class connect4.Game extends Phaser.Game
     @load.image 'p2', 'assets/images/player2.png'
     @load.image 'area', 'assets/images/area.png'
     @load.image 'selected', 'assets/images/selected.png'
+    @load.image 'pause', 'assets/images/pause.png'
 
-  onInput: (area, pointer) ->
-    currArea = area.i
-    if @gameData.prevArea is currArea
-      console.log('click:', area.i)
-      if area.i is 0
-        @discPut 0, 2, 'p1'                             # TODO remove this
-    else
-      @gameData.transp.x = @areaPos(area.i)
-    @gameData.prevArea = currArea
+  pauseState: ->
+    console.log 'pause'
 
   onCreate: ->
 
@@ -52,6 +46,9 @@ class connect4.Game extends Phaser.Game
 
     @gameData.grid = @add.group()
     @gameData.grid.create 0, 0, 'grid'
+
+    @gameData.buttons = @add.group()
+      .add @add.button 10, 10, 'pause', @pauseState, @
 
     discsCreate = (j) =>
       @discPut i, j, 'empty', 'grid' for i in [0..6]
@@ -77,6 +74,7 @@ class connect4.Game extends Phaser.Game
 
     @updateRatio()
     @updatePosition()
+    groupScale @gameData.buttons, false
     groupScale @gameData.selected
     groupScale @gameData.grid
     groupScale @gameData.discs
@@ -86,14 +84,21 @@ class connect4.Game extends Phaser.Game
   areaPos: (i) ->
     Math.ceil @gameData.offsets.gridArea + @gameData.offsets.area * i
 
+  areaHover: (area) ->
+    @gameData.transp.x = @areaPos(area.i)
+
+  areaClicked: (area) ->
+    if area.i is 0
+      @discPut 0, 2, 'p1'                             # TODO remove this
+
   areasCreate: (i) ->
     x = @areaPos i
-    sprite = @gameData.areas.create x, 0, 'area'
-    sprite.inputEnabled = true
-    over = (sprite, pointer) => @onInput sprite, pointer
-    click = (sprite, pointer) => @onClick sprite, pointer
-    sprite.i = i
-    sprite.events.onInputOver.add over, @
+    button = @add.button x, 0, 'area', @areaClicked, @
+    button.inputEnabled = true
+    @gameData.areas.add button
+    button.i = i
+    over = (button, pointer) => @areaHover button, pointer
+    button.events.onInputOver.add over, @
 
   getGrid: ->
     if not @gameData.gridImage?
