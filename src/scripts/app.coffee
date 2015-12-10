@@ -1,5 +1,6 @@
 COL_NB = 7
 LINE_NB = 6
+COLORS = [ '#AD9008', '#AD0808' ]
 
 run = ->
   listen()
@@ -47,8 +48,8 @@ help = -> (jQuery '#help-modal').modal()
 
 stop = ->
   nextTurn()
-  msg = "Player #{connect4.player} wins !"
-  (jQuery '#win-modal #win-text').text msg
+  (jQuery '#win-text #winner').css 'color', COLORS[connect4.player - 1]
+  (jQuery '#win-text #winner').text connect4.player
   (jQuery '#win-modal').modal
     backdrop: 'static'
     keyboard: false
