@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="en"><head><title>Connect 4</title><base href="/"><link href="assets/images/favicon.png" rel="icon" type="image/png"><link href="styles/vendor.css" rel="stylesheet" type="text/css"><style>html { height: 100%; }
+body { height: 100%; margin: 0; }
+#content {height: 100%; width: 100%; }
+#game-container { height: 100%; width: 100%; }
+.modal-dialog { max-width: 90%; text-align: center; width: 300px; }
+.modal-dialog { margin: 0 auto; margin-top: 10%; }
+#help-modal .modal-dialog { width: 600px; }
+.modal-text { font-size: 30px; margin-bottom: 10px; }
+.modal-content { border-radius: 7px; }
+.modal-header { background-color: #CF9400; border-top-left-radius: 6px; }
+.modal-header { border-top-right-radius: 6px; color: #FFF; }
+.modal-header { font-size: 35px; font-weight: bold; }
+.modal-button .btn { font-size: 20px; height: 60px; line-height: 35px; }
+.modal-button .btn { margin-bottom: 15px; width: 80%; max-width: 220px;}</style></head><body><div id="header"></div><div id="content"><div id="game-container"></div><div id="modals"><div tabindex="-1" role="dialog" id="pause-modal" class="modal fade game-modal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><div>Connect4</div></div><div class="modal-body"><div id="pause-text" class="modal-text"></div><div class="modal-button"><button type="button" data-dismiss="modal" class="btn btn-lg btn btn-primary">Resume</button></div><div class="modal-button"><button type="button" name="restart" data-dismiss="modal" class="btn btn-lg btn btn-primary">Restart</button></div><div class="modal-button"><a href="/" class="btn btn-lg btn-primary">Return to homepage</a></div></div></div></div></div><div tabindex="-1" role="dialog" id="win-modal" class="modal fade game-modal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><div>Connect4</div></div><div class="modal-body"><div id="win-text" class="modal-text">Player <span id="winner"></span> wins !</div><div class="modal-button"><button type="button" name="restart" data-dismiss="modal" class="btn btn-lg btn btn-primary">Start a new game</button></div><div class="modal-button"><a href="/" class="btn btn-lg btn-primary">Return to homepage</a></div></div></div></div></div><div tabindex="-1" role="dialog" id="help-modal" class="modal fade game-modal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><div>Connect4</div></div><div class="modal-body"><div class="modal-text">The objective of the game is to connect four of one's own discs of the
+same color next to each other vertically, horizontally, or diagonally
+before your opponent.</div><div class="modal-button"><button type="button" data-dismiss="modal" class="btn btn-lg btn btn-primary">I get it</button></div></div></div></div></div></div></div><div id="footer"></div><script async="" src="/browser-sync/browser-sync-client.2.10.0.js"></script><script src="scripts/vendor.js"></script><script src="scripts/app.js"></script></body></html>

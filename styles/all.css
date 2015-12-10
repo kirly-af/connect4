@@ -1,0 +1,45 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+body {
+  background-color: #F1F1F1;
+  font-size: 20px; }
+
+#header {
+  height: 5%; }
+  #header .navbar {
+    background-color: #25313E;
+    border: 0;
+    border-radius: 0;
+    height: 100%;
+    margin-bottom: 0; }
+    #header .navbar #title {
+      color: #f2f6f9; }
+
+#content {
+  height: 90%;
+  margin: 0 auto;
+  width: 50%; }
+  #content h1 {
+    padding-top: 20px;
+    margin-top: 0;
+    border-bottom: 1px solid black; }
+  #content #main-links {
+    position: relative;
+    top: 10%; }
+  #content .row {
+    padding-bottom: 50px;
+    text-align: center; }
+  #content a.btn {
+    font-size: 40px;
+    width: 395px; }
+
+#footer {
+  background-color: #65BD77;
+  color: white;
+  height: 5%;
+  text-align: center; }
+  #footer .container {
+    padding-top: 8px; }
