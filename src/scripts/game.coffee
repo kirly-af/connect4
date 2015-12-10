@@ -38,6 +38,7 @@ class connect4.Game extends Phaser.Game
     @load.image 'selected', 'assets/images/selected.png'
     @load.image 'pause', 'assets/images/pause.png'
     @load.image 'undo', 'assets/images/undo.png'
+    @load.image 'help', 'assets/images/help.png'
 
   pauseClicked: -> @gameData.logic.pause()
 
@@ -46,17 +47,15 @@ class connect4.Game extends Phaser.Game
     sprite = @gameData.discs.children.pop()
     sprite.destroy() if sprite?
 
+  helpClicked: ->
+    @gameData.logic.help()
+
   onCreate: ->
     @scale.scaleMode = Phaser.ScaleManager.RESIZE
     @stage.backgroundColor = '#87CEEB'
 
     @gameData.grid = @add.group()
     @gameData.grid.create 0, 0, 'grid'
-
-    @gameData.buttons = @add.group()
-    @gameData.buttons.add @add.button 10, 10, 'pause', @pauseClicked, this
-    @gameData.buttons.add @add.button 10, 200, 'undo', @undoClicked, this
-    @gameData.buttons.alpha = 0.5
 
     discsCreate = (j) =>
       @discPut i, j, 'empty', 'grid' for i in [0..6]
@@ -68,6 +67,12 @@ class connect4.Game extends Phaser.Game
 
     @gameData.columns = @add.group()
     @columnsCreate i for i in [0..6]
+
+    @gameData.buttons = @add.group()
+    @gameData.buttons.add @add.button 10, 10, 'pause', @pauseClicked, this
+    @gameData.buttons.add @add.button 10, 210, 'undo', @undoClicked, this
+    @gameData.buttons.add @add.button 10, 410, 'help', @helpClicked, this
+    @gameData.buttons.alpha = 0.6
 
     @onResize()
     return

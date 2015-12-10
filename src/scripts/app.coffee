@@ -9,6 +9,7 @@ run = ->
     pause: pause
     stop: stop
     undo: undo
+    help: help
   return
 
 init = ->
@@ -40,8 +41,9 @@ play = (button) ->
     connect4.count += 1
   return win(column, line) or connect4.count is COL_NB * LINE_NB
 
-pause = ->
-  (jQuery '#pause-modal').modal keyboard: false
+pause = -> (jQuery '#pause-modal').modal keyboard: false
+
+help = -> (jQuery '#help-modal').modal()
 
 stop = ->
   nextTurn()

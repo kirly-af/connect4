@@ -5,6 +5,7 @@ block content
   #modals
     include ../partials/pause_modal.jade
     include ../partials/win_modal.jade
+    include ../partials/help_modal.jade
 
 block scripts
   if dev
@@ -20,8 +21,13 @@ block styles
     body { height: 100%; margin: 0; }
     #content {height: 100%; width: 100%; }
     #game-container { height: 100%; width: 100%; }
-    .modal-dialog { width: 300px; text-align: center; }
+    .modal-dialog { max-width: 90%; text-align: center; width: 300px; }
+    .modal-dialog { margin: 0 auto; margin-top: 10%; }
+    #help-modal .modal-dialog { width: 600px; }
     .modal-text { font-size: 30px; margin-bottom: 10px; }
     .modal-content { border-radius: 7px; }
-    .modal-header { background-color: #CF9400; border-top-left-radius: 6px; border-top-right-radius: 6px; color: #FFF; font-size: 35px; font-weight: bold; }
-    .modal-button .btn { height: 60px; line-height: 35px; margin-bottom: 15px; width: 80%; }    
+    .modal-header { background-color: #CF9400; border-top-left-radius: 6px; }
+    .modal-header { border-top-right-radius: 6px; color: #FFF; }
+    .modal-header { font-size: 35px; font-weight: bold; }
+    .modal-button .btn { font-size: 20px; height: 60px; line-height: 35px; }
+    .modal-button .btn { margin-bottom: 15px; width: 80%; max-width: 220px;}
