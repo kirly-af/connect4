@@ -35,6 +35,7 @@ play = (button) ->
 
 stop = ->
   window.alert "Player##{if player is 1 then 2 else 1} wins !"
+  game.reset()
 
 isInGrid = (x, y) -> x >= 0 and x < LINE_NB and y >= 0 and y < COL_NB
 

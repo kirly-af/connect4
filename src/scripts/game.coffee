@@ -22,6 +22,12 @@ class connect4.Game extends Phaser.Game
     y = @gameData.offsets.grid + @gameData.offsets.disc * (5 - j)
     @gameData[group].create x, y, type
 
+  reset: ->
+    discs = @gameData.discs.children
+    while discs.length isnt 0
+      discs.pop().destroy()
+    return
+
   onPreload: ->
     @load.image 'grid', 'assets/images/grid.png'
     @load.image 'empty', 'assets/images/empty.png'
