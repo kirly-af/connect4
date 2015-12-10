@@ -1,26 +1,20 @@
 class connect4.Game extends Phaser.Game
-  constructor: (element) ->
+  constructor: (element, logic) ->
     super window.innerWidth, window.innerHeight, Phaser.AUTO, element,
       preload: => @onPreload()
       create: => @onCreate()
       resize: => @onResize()
     @gameData =
+      logic: logic
       ratio: 1
       offsets:
         grid: 90
-        gridArea: 63
+        gridcolumn: 63
         disc: 255
-        area: 256
+        column: 256
       pos:
         x: 0
         y: 0
-
-  fakeIt: ->
-    @discPut 0, 0, 'p1'
-    @discPut 0, 1, 'p1'
-    @discPut 2, 0, 'p2'
-    @discPut 3, 0, 'p2'
-    @discPut 4, 0, 'p2'
 
   discPut: (i, j, type, group='discs') ->
     x = @gameData.offsets.grid + @gameData.offsets.disc * i
@@ -32,7 +26,7 @@ class connect4.Game extends Phaser.Game
     @load.image 'empty', 'assets/images/empty.png'
     @load.image 'p1', 'assets/images/player1.png'
     @load.image 'p2', 'assets/images/player2.png'
-    @load.image 'area', 'assets/images/area.png'
+    @load.image 'column', 'assets/images/column.png'
     @load.image 'selected', 'assets/images/selected.png'
     @load.image 'pause', 'assets/images/pause.png'
 
@@ -48,7 +42,7 @@ class connect4.Game extends Phaser.Game
     @gameData.grid.create 0, 0, 'grid'
 
     @gameData.buttons = @add.group()
-      .add @add.button 10, 10, 'pause', @pauseState, @
+      .add @add.button 10, 10, 'pause', @pauseState, this
 
     discsCreate = (j) =>
       @discPut i, j, 'empty', 'grid' for i in [0..6]
@@ -56,12 +50,11 @@ class connect4.Game extends Phaser.Game
     @gameData.discs = @add.group()
 
     @gameData.selected = @add.group()
-    @gameData.transp = @gameData.selected.create @areaPos(3), 50, 'selected'
+    @gameData.transp = @gameData.selected.create @columnPos(3), 50, 'selected'
 
-    @gameData.areas = @add.group()
-    @areasCreate i for i in [0..6]
+    @gameData.columns = @add.group()
+    @columnsCreate i for i in [0..6]
 
-    @fakeIt()
     @onResize()
     return
 
@@ -78,27 +71,27 @@ class connect4.Game extends Phaser.Game
     groupScale @gameData.selected
     groupScale @gameData.grid
     groupScale @gameData.discs
-    groupScale @gameData.areas
+    groupScale @gameData.columns
     @scale.refresh()
 
-  areaPos: (i) ->
-    Math.ceil @gameData.offsets.gridArea + @gameData.offsets.area * i
+  columnPos: (i) ->
+    Math.ceil @gameData.offsets.gridcolumn + @gameData.offsets.column * i
 
-  areaHover: (area) ->
-    @gameData.transp.x = @areaPos(area.i)
+  columnHover: (column) ->
+    @gameData.transp.x = @columnPos(column.i)
 
-  areaClicked: (area) ->
-    if area.i is 0
-      @discPut 0, 2, 'p1'                             # TODO remove this
+  columnClicked: (column) ->
+    finished = @gameData.logic.play column
+    @gameData.logic.stop() if finished
 
-  areasCreate: (i) ->
-    x = @areaPos i
-    button = @add.button x, 0, 'area', @areaClicked, @
+  columnsCreate: (i) ->
+    x = @columnPos i
+    button = @add.button x, 0, 'column', @columnClicked, this
     button.inputEnabled = true
-    @gameData.areas.add button
+    @gameData.columns.add button
     button.i = i
-    over = (button, pointer) => @areaHover button, pointer
-    button.events.onInputOver.add over, @
+    over = (button, pointer) => @columnHover button, pointer
+    button.events.onInputOver.add over, this
 
   getGrid: ->
     if not @gameData.gridImage?
