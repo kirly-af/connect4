@@ -26,6 +26,7 @@ class connect4.Game extends Phaser.Game
     discs = @gameData.discs.children
     while discs.length isnt 0
       discs.pop().destroy()
+    @gameData.finished = false
     return
 
   onPreload: ->

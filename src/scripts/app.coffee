@@ -1,19 +1,27 @@
 COL_NB = 7
 LINE_NB = 6
 
-player = 1
-grid = [
-  [0, 0, 0, 0, 0, 0]
-  [0, 0, 0, 0, 0, 0]
-  [0, 0, 0, 0, 0, 0]
-  [0, 0, 0, 0, 0, 0]
-  [0, 0, 0, 0, 0, 0]
-  [0, 0, 0, 0, 0, 0]
-  [0, 0, 0, 0, 0, 0]
-]
-cache = [0, 0, 0, 0, 0, 0, 0]
-finished = false
-count = 0
+player = null
+grid = null
+cache = null
+finished = null
+count = null
+
+init = ->
+  player = 1
+  grid = [
+    [0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0]
+  ]
+  cache = [0, 0, 0, 0, 0, 0, 0]
+  finished = false
+  count = 0
+  return
 
 win = (x, y) ->
   finished = axeCheck(x, y, 0, 1)
@@ -35,6 +43,10 @@ play = (button) ->
 
 stop = ->
   window.alert "Player##{if player is 1 then 2 else 1} wins !"
+  reset()
+
+reset = ->
+  init()
   game.reset()
 
 isInGrid = (x, y) -> x >= 0 and x < LINE_NB and y >= 0 and y < COL_NB
@@ -57,6 +69,7 @@ axeCheck = (x, y, nextX, nextY) ->
   return nb is 4
 
 
+init()
 game = new connect4.Game 'game-container',
   play: play
   stop: stop
