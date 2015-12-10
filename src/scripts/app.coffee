@@ -27,6 +27,9 @@ play = (button) ->
     connect4.count += 1
   return win(column, line) or connect4.count is COL_NB * LINE_NB
 
+pause = ->
+  ($ '#pause-modal').modal keyboard: false
+
 stop = ->
   alert "Player##{if connect4.player is 1 then 2 else 1} wins !"
   reset()
@@ -57,4 +60,5 @@ axeCheck = (x, y, nextX, nextY) ->
 init()
 game = new connect4.Game 'game-container',
   play: play
+  pause: pause
   stop: stop

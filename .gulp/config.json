@@ -1,8 +1,9 @@
 {
   "dest": "./dist/",
-  "views": "./src/**.jade",
+  "views": "./src/**/*.jade",
   "viewsIgnore": [
-    "!./src/views/layouts/**/*.jade"
+    "!./src/views/layouts/**/*.jade",
+    "!./src/views/partials/**/*.jade"
   ],
   "scripts": [
     "./src/scripts/**/module.coffee",
