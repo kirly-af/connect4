@@ -6,6 +6,7 @@ class connect4.Game extends Phaser.Game
       resize: => @onResize()
     @gameData =
       logic: logic
+      finished: false
       ratio: 1
       offsets:
         grid: 90
@@ -30,11 +31,9 @@ class connect4.Game extends Phaser.Game
     @load.image 'selected', 'assets/images/selected.png'
     @load.image 'pause', 'assets/images/pause.png'
 
-  pauseState: ->
-    console.log 'pause'
+  pauseState: -> @gameData.logic.pause()
 
   onCreate: ->
-
     @scale.scaleMode = Phaser.ScaleManager.RESIZE
     @stage.backgroundColor = '#87CEEB'
 
@@ -81,8 +80,12 @@ class connect4.Game extends Phaser.Game
     @gameData.transp.x = @columnPos(column.i)
 
   columnClicked: (column) ->
-    finished = @gameData.logic.play column
-    @gameData.logic.stop() if finished
+    return if @gameData.finished
+    @gameData.finished = @gameData.logic.play column
+    if @gameData.finished
+      window.setTimeout =>
+        @gameData.logic.stop()
+      , 500
 
   columnsCreate: (i) ->
     x = @columnPos i
