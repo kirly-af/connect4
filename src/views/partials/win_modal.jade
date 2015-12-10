@@ -1,18 +1,15 @@
 block modal-vars
-  - var modalId = "pause-modal"
+  - var modalId = "win-modal"
 extends ../layouts/modal.jade
 
 block modal-body
-  #pause-text.modal-text
-  .modal-button
-    button.btn.btn-lg.btn.btn-primary(type="button",data-dismiss="modal")
-      | Resume
+  #win-text.modal-text
   .modal-button
     button.btn.btn-lg.btn.btn-primary(
       type="button",
       name="restart",
       data-dismiss="modal"
     )
-      | Restart
+      | Start a new game
   .modal-button
     a.btn.btn-lg.btn-primary(href="/") Return to homepage
