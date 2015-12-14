@@ -19,8 +19,8 @@ body {
       color: #f2f6f9; }
 
 #content {
-  height: 90%;
   margin: 0 auto;
+  min-height: 90%;
   width: 50%; }
   #content h1 {
     padding-top: 20px;
@@ -43,3 +43,5 @@ body {
   text-align: center; }
   #footer .container {
     padding-top: 8px; }
+
+/*# sourceMappingURL=all.css.map */

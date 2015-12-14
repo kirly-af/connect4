@@ -296,8 +296,8 @@
 
   play = function(button) {
     var column, line;
-    if (connect4.grid[COL_NB - 1][LINE_NB - 1] === 0) {
-      column = button.i;
+    column = button.i;
+    if (connect4.grid[column][LINE_NB - 1] === 0) {
       line = connect4.cache[column];
       connect4.game.discPut(column, line, "p" + connect4.player);
       connect4.grid[column][line] = connect4.player;

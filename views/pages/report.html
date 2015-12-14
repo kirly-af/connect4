@@ -1,2 +1,71 @@
-<!DOCTYPE html><html lang="en"><head><title>Connect 4</title><base href="https://kirly-af.github.io/connect4/"><link href="assets/images/favicon.png" rel="icon" type="image/png"><link href="styles/vendor.css" rel="stylesheet" type="text/css"><link href="styles/all.css" rel="stylesheet" type="text/css"></head><body><div id="header"><nav class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><a id="title" href="#" class="navbar-brand">Connect 4</a></div></div></nav></div><div id="content"><h1>Report</h1><p></p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div><div id="footer"><div class="container"><p>Alexandre Fulgoni, Adrien Chataignoux, Julien Fontana, Cyrille Morin</p></div></div><script src="scripts/vendor.js"></script></body></html>
+<!DOCTYPE html><html lang="en"><head><title>Connect 4</title><base href="https://kirly-af.github.io/connect4/"><link href="assets/images/favicon.png" rel="icon" type="image/png"><link href="styles/vendor.css" rel="stylesheet" type="text/css"><link href="styles/all.css" rel="stylesheet" type="text/css"></head><body><div id="header"><nav class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><a id="title" href="#" class="navbar-brand">Connect 4: Home</a></div></div></nav></div><div id="content"><h1 id="report">Report</h1>
+<p><em>This document details the steps we went through in order to reach the point where we were able to implement our working UI for <strong><em>CA357 HCI</em></strong> module assignment</em>.</p>
+<p><strong><em>Chosen application</em></strong>: <em>Game of Connect 4.</em></p>
+<p><strong><em>Reference</em></strong>: <em>Assignment details can be found <a href="http://www.computing.dcu.ie/~dfitzpat/ca357/assignment"> here</a>.</em></p>
+<h2 id="choice-of-technologies">Choice of Technologies</h2>
+<p><em>This part exposes the technologies we used to develope our application.
+The application uses exclusively front-end technologies.</em></p>
+<h3 id="languages-">Languages:</h3>
+<p>We used languages that are extensions to the web standards (ie.: JavaScript 5.1, HTML5 and CSS3). That enabled us to write code faster. You can find source code <a href="https://github.com/kirly-af/connect4/tree/master/src">here</a>.</p>
+<ul>
+<li><a href="http://coffeescript.org/"><strong>CoffeeScript</strong></a>: a programming language that transpiles to JavaScript</li>
+<li><a href="http://jade-lang.com/"><strong>Jade</strong></a>: a terse language for writing HTML templates</li>
+<li><a href="(http://jade-lang.com/"><strong>Sass</strong></a>: a scripting language that is interpreted into CSS</li>
+</ul>
+<h3 id="libraries-">Libraries:</h3>
+<p>For this project, we used several popular JavaScript libraries.</p>
+<ul>
+<li><a href="http://www.phaser.io/"><strong>Phaser</strong></a>: a HTML5 game framework</li>
+<li><a href="http://jquery.com/"><strong>jQuery</strong></a>: the most famous JavaScript library that abstracts the DOM API</li>
+<li><a href="http://getbootstrap.com/"><strong>Bootstrap</strong></a>: a HTML5 framework for developing responsive web projects</li>
+</ul>
+<h3 id="toolchain-">Toolchain:</h3>
+<p>No page preprocessing server (example: PHP) is necessary. However we did use preprocessing on client-side using some famous node.js related softwares.</p>
+<ul>
+<li><a href="https://www.npmjs.com/"><strong>npm</strong></a>: the node.js package manager</li>
+<li><a href="http://bower.io/"><strong>Bower</strong></a>: a dependency manager used to manage installation of third party libraries</li>
+<li><a href="http://gulpjs.com/"><strong>Gulp</strong></a>: a modern task runner, used for example to tanspile CoffeeScript to JavaScript</li>
+</ul>
+<h3 id="optimization-">Optimization:</h3>
+<p>That toolchain enabled us to reuse common code, and so to have more concise code.
+But the real strength of it is that we have been able to reduce page loading overhead. In effect Gulp tasks allow to:</p>
+<ul>
+<li>optimize assets such as scripts and stylesheets by concatenation and minification</li>
+<li>limit the necessary HTTP GET requests to fetch resources</li>
+</ul>
+<h2 id="prototype-description">Prototype description</h2>
+<p><em>We will discuss here the different aspects of the working UI.</em></p>
+<h3 id="gameplay-">Gameplay:</h3>
+<p>We decided that the game will be played with mouse. It would have been possible to play with keyboard instead, although it would not be very convenient on devices with touch screens (smartphones, tablets...).</p>
+<p>The gameplay is really simple. The players have to touch the column in which they want to put the disc.</p>
+<p>When the game ends, the players can not do any more actions, apart from starting a new game or return to the project homepage.</p>
+<h3 id="user-experience-">User experience:</h3>
+<ul>
+<li>When a column is hovered by the mouse, it is darkened so the player does not wonder if it is making a mistake.</li>
+<li>Discs colors are the same as those of the original game so that it looks familiar to the players.</li>
+<li>An option for restarting the game is available by pressing the pause button</li>
+<li>We integrated a <em>help</em> button (<strong>?</strong> icon) that shows a short reminder of the rules</li>
+<li>We thought about the possibility to make a mistake on devices with touchscreens. That is the reason why we decided to add an <em>undo</em> button. Of course it should not be used for cheating purposes.</li>
+</ul>
+<h3 id="assets-design-">Assets design:</h3>
+<p>We designed the game assets by ourselves. Full list can be found <a href="https://github.com/kirly-af/connect4/tree/master/src/assets/images">here</a>. It includes the grid, the buttons and the discs. The choice of the colors is arbitrary, but we tried to provide an experience similar to the original game, that is why we kept the original game disc colors (ie.: red and yellow).</p>
+<h3 id="responsivity-">Responsivity:</h3>
+<p>Responsivity is an essential feature of a modern application that should run on various screen sizes. We made sure the application could be used on any device. See below the necessary steps to provide our full responsive game:</p>
+<ul>
+<li>Calculate the best ratio so that the game fits the screen</li>
+<li>Rescale the sprites to that ratio</li>
+<li>Calculate the position so that the game is centered</li>
+</ul>
+<p>Everytime the window is resized, we have to repeat those steps, since the ratio changes and we have to find the new position.</p>
+<p><em>Phaser</em> provides a set of <a href="http://phaser.io/docs/2.3.0/Phaser.Group.html#scale">methods</a> for its graphic objects that enabled us to reach that objective. Thanks to that framework, responsivity was not difficult to manage.</p>
+<h3 id="menus-">Menus:</h3>
+<p>The game menus are actually implemented with <a href="http://getbootstrap.com/javascript/#modals-examples">Bootstrap modals</a>. Functionnally, they are similar to JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/alert">popup boxes</a>, though they have multiple advantages:</p>
+<ul>
+<li>not real popups, therefore can not be blocked by the web browser</li>
+<li>natively responsive</li>
+<li>easy to integrate in the code</li>
+<li>convenient API that works well with jQuery</li>
+<li>fully customizable with stylesheets</li>
+<li>not resource consumming</li>
+</ul>
+</div><div id="footer"><div class="container"><p>Alexandre Fulgoni, Adrien Chataignoux, Julien Fontana, Cyrille Morin</p></div></div><script src="scripts/vendor.js"></script></body></html>
