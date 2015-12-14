@@ -32,8 +32,8 @@ win = (x, y) ->
   return connect4.finished
 
 play = (button) ->
-  unless connect4.grid[COL_NB - 1][LINE_NB - 1] isnt 0
-    column = button.i
+  column = button.i
+  unless connect4.grid[column][LINE_NB - 1] isnt 0
     line = connect4.cache[column]
     connect4.game.discPut column, line, "p#{connect4.player}"
     connect4.grid[column][line] = connect4.player

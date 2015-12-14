@@ -34,8 +34,8 @@ body
 
 #content
 {
-  height: $content-height;
   margin: 0 auto;
+  min-height: $content-height;
   width: 50%;
 
   h1
